@@ -18,4 +18,8 @@ class Profile extends Model
     public function following(){
         return $this->belongsToMany(User::class);
     }
+
+    public function userMessages(){
+        return $this->belongsToMany(User::class);
+    }
 }

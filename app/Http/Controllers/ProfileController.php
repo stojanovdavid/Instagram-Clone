@@ -10,9 +10,26 @@ use Illuminate\Support\Facades\DB;
 class ProfileController extends Controller
 {
     public function index(){
-        $followers = DB::table('user_profile')->where('following_id', auth()->user()->id);
-        $following = DB::table('user_profile')->where('follower_id', auth()->user()->id);
-        return view('iGram.profile', compact('followers', 'following'));
+        $following = DB::table('user_profile')->where('follower_id', auth()->user()->id)->get();
+        $followers = DB::table('user_profile')->where('following_id', auth()->user()->id)->get();
+        $followedByUserIds = [];
+        foreach($followers as $key => $follow){
+            $followedByUserIds[$key] = $follow->follower_id;
+        }
+        $followedByUsers = [];
+        foreach($followedByUserIds as $key => $followedUser){
+            $followedByUsers[] = User::where('id', $followedUser)->first();
+        }        
+
+        $followingUserIds = [];
+        foreach($following as $key => $follow){
+            $followingUserIds[$key] = $follow->following_id;
+        }
+        $followingUsers = [];
+        foreach($followingUserIds as $key => $followedUser){
+            $followingUsers[] = User::where('id', $followedUser)->first();
+        }
+        return view('iGram.profile', compact('followers', 'following', 'followedByUsers', 'followingUsers'));
     }
     
     public function followProfile($followerId, $followedId, $val){
@@ -21,5 +38,25 @@ class ProfileController extends Controller
             'following_id' => $followedId
         ]);
         return "The one that is followed is $followedId and the one that follows is $followerId" ;
+    }
+    public function edit($id){
+        $user = User::where('id', $id)->first();
+        return view('iGram.profile.edit', compact('user'));
+    }
+    public function update(Request $request, $id){
+        if($request->has('image')){
+            $newImage = time() . '-' . $request->name . '.' . $request->image->extension();
+            $request->image->move(public_path('css/images'), $newImage);
+            User::where('id', $id)->update([
+                'imageUrl' => $newImage,
+                'bio' => $request->bio
+            ]);
+        }else{
+            User::where('id', $id)->update([
+                'bio' => $request->bio
+            ]);
+        }
+
+        return redirect()->route('myProfile');
     }
 }

@@ -15,7 +15,7 @@
                 <h3>Sign up to see photos and videos from your friends.</h3>
             </div>
             <div>
-                <form action="{{ route('iGram.signup') }}" method="POST">
+                <form action="{{ route('signup') }}" method="POST">
                     @csrf
                     <div class="mx-auto" style="width: 260px">
                         <div>

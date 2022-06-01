@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
@@ -21,16 +22,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 
 
 
 
 Route::prefix('/iGram')->group(function(){
-    Route::get('/signup', [RegisterController::class, 'index'])->name('iGram.signup');
+    Route::get('/signup', [RegisterController::class, 'index'])->name('signup');
     Route::post('/signup', [RegisterController::class, 'store']);
-    Route::post('/login', [LoginController::class, 'store'])->name('iGram.login');
+    Route::post('/login', [LoginController::class, 'store'])->name('login');
     Route::get('/messages', [MessageController::class, 'index'])->name('messages');
     Route::get('/feed', function(){
         return view('iGram.feed');
@@ -39,4 +40,13 @@ Route::prefix('/iGram')->group(function(){
     Route::get('/user', [UserController::class, 'search'])->name('user');
 });
 
+Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
 Route::post('/follow/{followerId}/{followedId}/{val}', [ProfileController::class, 'followProfile'])->name('follow.user');
+Route::get('/iGram/edit/profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/iGram/edit/profile/{id}', [ProfileController::class, 'update']);
+
+
+Route::get('iGram/messages', [MessageController::class, 'index'])->name('messages');
+Route::post('iGram/chat/message/send/{authId}/{recieverId}/{message}', [MessageController::class, 'sendMessage']);
+Route::post('iGram/message/send/{authId}/{recieverId}/{message}', [MessageController::class, 'sendMessage']);
+Route::get('iGram/chat/{id}', [MessageController::class, 'seeChat'])->name('userChat');
