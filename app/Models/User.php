@@ -52,4 +52,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Profile::class, 'reciever_id');
     }
 
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+
 }

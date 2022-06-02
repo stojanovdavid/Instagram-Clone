@@ -69,7 +69,7 @@
                 </div>
             
                 <div class="float-right">
-                    <a href="" class="btn btn-primary btn-sm">Add post</a>
+                    <a href="{{ route('post.create') }}" class="btn btn-primary btn-sm">Add post</a>
                 </div>
                 {{-- <div>
                     <span><b>{{ 'k' }}</b></span>
@@ -85,19 +85,16 @@
         <div class="row pt-3" style="background: rgb(255 255 255 / 54%);padding: 12px;border-radius: 5px;">
             <section class="posts">
                 <div class="container">
-                    <div class="row" style="background: rgb(255 255 255 / 54%);padding: 12px;border-radius: 5px;">
-                        <div class="col" style="padding: 1px">
-                            <img src="/css/images/ig.webp" alt="" class="w-100">
-                        </div>
-                        <div class="col" style="padding: 1px">
-                            <img src="/css/images/instagram.png" alt="" class="w-100">
-                        </div>
-                        <div class="col" style="padding: 1px">
-                            <img src="" alt="" class="post-img">
-                        </div>
-                        <div class="col" style="padding: 1px">
-                            <img src="" alt="" class="post-img">
-                        </div>
+                    <div class="row pt-3" style="background: rgb(255 255 255 / 54%);padding: 12px;border-radius: 5px;">
+                        @forelse ($posts as $post)
+                            <div class="col-sm-4" style="padding: 1px">
+                                <a href="{{ route('post.view', $post->id ) }}">
+                                    <img src="/css/images/{{ $post->imageUrl }}" alt="" class="w-100">
+                                </a>
+                            </div>
+                        @empty
+                            You have no posts
+                        @endforelse
                     </div>
                 </div>
             </section>

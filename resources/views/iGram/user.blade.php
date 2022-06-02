@@ -39,4 +39,20 @@
         </div>
     </div>
     <div class="row pt-3" style="background: rgb(255 255 255 / 54%);padding: 12px;border-radius: 5px;">
+        <section class="posts">
+            <div class="container">
+                <div class="row pt-3" style="background: rgb(255 255 255 / 54%);padding: 12px;border-radius: 5px;">
+                    @forelse ($user->posts as $post)
+                        <div class="col-sm-4" style="padding: 1px">
+                            <a href="{{ route('post.view', $post->id ) }}">
+                                <img src="/css/images/{{ $post->imageUrl }}" alt="" class="w-100">
+                            </a>
+                        </div>
+                    @empty
+                        This user has no posts
+                    @endforelse
+                </div>
+            </div>
+        </section>
+    </div>
 @endsection

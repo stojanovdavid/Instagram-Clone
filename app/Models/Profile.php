@@ -22,4 +22,8 @@ class Profile extends Model
     public function userMessages(){
         return $this->belongsToMany(User::class);
     }
+
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
 }

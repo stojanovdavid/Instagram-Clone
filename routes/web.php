@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
@@ -36,8 +37,12 @@ Route::prefix('/iGram')->group(function(){
     Route::get('/feed', function(){
         return view('iGram.feed');
     })->name('feed');
-    Route::get('/myProfile', [ProfileController::class, 'index'])->name('myProfile');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/user', [UserController::class, 'search'])->name('user');
+    Route::get('/post/view/{id}', [PostController::class, 'index'])->name('post.view');
+    Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
+    Route::post('/post/create', [PostController::class, 'store'])->name('post.create');
+
 });
 
 Route::post('/logout', [LogoutController::class, 'store'])->name('logout');

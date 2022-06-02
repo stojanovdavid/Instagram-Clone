@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class UserController extends Controller
         $user = User::where('username', $request->search)->first();
         $profile = Profile::where('username', $request->search)->first();
         $followers = DB::table('user_profile')->where('following_id', $profile->user_id);
+        $username = $request->search;
         return view('iGram.user', compact('user', 'followers'));
     }
 }
