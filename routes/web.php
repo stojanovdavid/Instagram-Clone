@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MessageController;
@@ -42,7 +43,7 @@ Route::prefix('/iGram')->group(function(){
     Route::get('/post/view/{id}', [PostController::class, 'index'])->name('post.view');
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
     Route::post('/post/create', [PostController::class, 'store'])->name('post.create');
-
+    Route::post('/post/view/comment/{authId}/{postId}/{comment}', [CommentController::class, 'store']);
 });
 
 Route::post('/logout', [LogoutController::class, 'store'])->name('logout');

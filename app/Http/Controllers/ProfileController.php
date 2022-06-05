@@ -61,6 +61,6 @@ class ProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('myProfile');
+        return redirect()->route('profile');
     }
 }

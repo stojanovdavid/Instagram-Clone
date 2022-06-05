@@ -48,7 +48,6 @@ function sendTo(authId){
 
 
 function sendMessage($authId, $userId){
-
     let message = document.getElementById('sentMessage').value;
     $.ajax({
         url :  'message/send/' + $authId + '/' + $userId + '/' + message,
@@ -59,4 +58,18 @@ function sendMessage($authId, $userId){
             console.log(message);
         } 
     });
+}
+
+function comment($authId, $postId){
+    let commentMsg = document.getElementById('commentPost').value;
+    $.ajax({
+        url : 'comment' + '/' + $authId + '/' + $postId + '/' + commentMsg,
+        method: 'post',
+        success: function(data){
+            let commentObj = JSON.parse(data);
+            let comment = commentObj.comment;
+            console.log(comment);
+        }
+    });
+
 }
