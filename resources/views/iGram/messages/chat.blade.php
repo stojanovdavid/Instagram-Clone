@@ -28,7 +28,7 @@
                                                 <img src="/css/images/{{ $messagedUser->imageUrl }}" alt="" class="rounded-circle" width="20%" style="margin-right: 20px">
                                             @endif
                                             <div>
-                                                <p>{{ $messagedUser->username }}</p>
+                                                <a href="{{ route('user.view', $messagedUser->id) }}" class="text-decoration-none text-dark" style="margin-bottom: 10px">{{ $messagedUser->username }}</a> <br>
                                                 <a href="{{ route('userChat', $messagedUser->id) }}">See convo</a>
                                             </div>
                                         </div>

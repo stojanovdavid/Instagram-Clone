@@ -37,8 +37,9 @@ Route::prefix('/iGram')->group(function(){
     Route::post('/signup', [RegisterController::class, 'store']);
     Route::post('/login', [LoginController::class, 'store'])->name('login');
     Route::get('/messages', [MessageController::class, 'index'])->name('messages');
-    Route::get('/feed', [HomeController::class, 'index'])->name('feed');
+    Route::get('/feed', [HomeController::class, 'index'])->name('feed')->middleware('auth');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::delete('/profile/delete/{id}', [ProfileController::class, 'destroy'])->name('profile.delete');
     Route::get('/user', [UserController::class, 'search'])->name('user');
     Route::get('/user/{id}', [UserController::class, 'view'])->name('user.view');
     Route::post('comment/{authId}/{postId}/{comment}', [CommentController::class, 'store']);

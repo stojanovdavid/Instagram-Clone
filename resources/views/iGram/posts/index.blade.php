@@ -26,7 +26,7 @@
                                         @if ($post->user->imageUrl === NULL)
                                             <img src="/css/images/avatar.jpeg" class="rounded-circle" style="width: 50px; height:50px">
                                         @else
-                                            <img src="/css/images/{{ $post->user->imageUrl }}" alt="" class="rounded-circle">
+                                            <img src="/css/images/{{ $post->user->imageUrl }}" alt="" class="rounded-circle" style="width: 50px; height:50px">
                                         @endif
                                     </div>
                                     <div class="pl-3">

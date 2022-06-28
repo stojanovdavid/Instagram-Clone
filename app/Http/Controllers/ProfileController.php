@@ -67,4 +67,8 @@ class ProfileController extends Controller
 
         return redirect()->route('profile');
     }
+    public function destroy($id){
+        User::where('id', $id)->delete();
+        return redirect()->route('welcome');
+    }
 }

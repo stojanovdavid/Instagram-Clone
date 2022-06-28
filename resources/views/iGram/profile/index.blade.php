@@ -15,11 +15,37 @@
                 <div class="d-flex pb-2">
                     <h4 class="pr-5" style="margin-bottom: 0px; margin-right: 30px">{{ auth()->user()->username }}</h4>
                     @if (auth()->user())
-                    <a href="{{ route('profile.edit', auth()->user()->id) }}" class="btn btn-primary btn-sm">Edit profile</a>
+                    <a href="{{ route('profile.edit', auth()->user()->id) }}" class="btn btn-primary" style="margin-right: 20px">Edit profile</a>
                     @else
                         <button >Follow</button> 
                     @endif
 
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccModal">
+                        Delete account
+                      </button>
+                    <div class="modal hide fade" id="deleteAccModal" tabindex="-1" role="dialog" aria-labelledby="deleteAccModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Account</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <p>Are you sure you want to delete your account?</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <form action="{{ route('profile.delete', auth()->user()->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     {{-- @can('update', $user->profile)
                         <a class="btn btn-secondary btn-sm" href="/profile/{{ $user->id }}/edit">Edit Profile</a>
                     @endcan    --}}
@@ -75,15 +101,6 @@
                 <div class="float-right">
                     <a href="{{ route('post.create') }}" class="btn btn-primary btn-sm">Add post</a>
                 </div>
-                {{-- <div>
-                    <span><b>{{ 'k' }}</b></span>
-                    <p>
-                    {{ 'k'}}
-                    </p>
-                </div> --}}
-                {{-- @can('update', $user->profile)
-                @endcan --}}
-            
             </div>
         </div>
         <div class="row pt-3" style="background: rgb(255 255 255 / 54%);padding: 12px;border-radius: 5px;">

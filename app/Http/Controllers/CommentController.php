@@ -29,4 +29,14 @@ class CommentController extends Controller
         ]);
         return back();
     }
+    public function storeComment($postId, $authId, $comment){
+
+        Comment::create([
+            'user_id' => $authId,
+            'post_id' => $postId,
+            'comment_text' => $comment
+        ]);
+
+        return json_encode(['comment' => $postId]);
+    }
 }

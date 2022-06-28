@@ -71,10 +71,11 @@ function sendMessage(authId, userId){
     });
 }
 
-function comment($authId, $postId){
+function comment(authId, postId){
     let commentMsg = document.getElementById('commentPost').value;
+    console.log(commentMsg);
     $.ajax({
-        url : 'comment' + '/' + $authId + '/' + $postId + '/' + commentMsg,
+        url : 'comment' + '/' + authId + '/' + postId + '/' + commentMsg,
         method: 'post',
         success: function(data){
             let commentObj = JSON.parse(data);
@@ -84,4 +85,20 @@ function comment($authId, $postId){
     });
 
 }
+
+function commentFeed(authId, postId){
+    let commentMsg = document.getElementById('commentPost' + authId).value;
+    console.log(commentMsg);
+    $.ajax({
+        url : 'comment' + '/' + authId + '/' + postId + '/' + commentMsg,
+        method: 'post',
+        success: function(data){
+            let commentObj = JSON.parse(data);
+            let comment = commentObj.comment;
+            console.log(data);
+        }
+    });
+
+}
+
 

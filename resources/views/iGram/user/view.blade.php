@@ -25,7 +25,7 @@
             <div class="d-flex pb-3">
                  <div class="pr-5" style="margin-right: 10px"><strong></strong> Posts</div>
                  <div class="pr-5" style="margin-right: 10px"><span><strong>{{ $followers->count() }}</strong></span>  {{ Str::plural('follower', $followers->count()) }}</div>
-                 <div class="pr-5" style="margin-right: 10px"><strong>{{ $following->count() }}</strong> {{ Str::plural('following', $followers->count()) }}</div>
+                 <div class="pr-5" style="margin-right: 10px"><strong style="margin-right: 7px">{{ $following->count() }}</strong><span>Following</span></div>
             </div>
             <div>
                 <p>

@@ -76,7 +76,7 @@
                                 <a href='{{ route('profile') }}' class='nav-link'>
                                     My profile
                                 </a>
-                                <form action="{{ route('logout') }}" method="post">
+                                <form action="{{ route('logout') }}" method="post" autocomplete="off">
                                     @csrf
                                     <button type="submit">Log out</button>
                                 </form>
