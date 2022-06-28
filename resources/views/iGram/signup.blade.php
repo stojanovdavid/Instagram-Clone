@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div>
-                            <input type="text" name="password" placeholder="Password" class="mb-2 px-2 py-1"> <br>
+                            <input type="password" name="password" placeholder="Password" class="mb-2 px-2 py-1"> <br>
                             <div class="text-danger">
                                 @error('password')
                                     {{ $message }}
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div>
-                            <input type="text" name="password_confirmation" placeholder="Confirm Password" class="mb-2 px-2 py-1"> <br>
+                            <input type="password" name="password_confirmation" placeholder="Confirm Password" class="mb-2 px-2 py-1"> <br>
                         </div>
                         <button type="submit" value="Sign Up" class="btn btn-primary" style="width: 100%">
                             Sign Up

@@ -28,7 +28,7 @@
                     <form action="{{ route('login') }}" method="post" style="width: 300px" class="mx-auto">
                         @csrf
                         <input type="text" name="username" placeholder="Username" style="width: 100%" class="mb-2 px-2 py-1"> <br>
-                        <input type="text" name="password" placeholder="Password" style="width: 100%" class="mb-3 px-2 py-1"> <br>
+                        <input type="password" name="password" placeholder="Password" style="width: 100%" class="mb-3 px-2 py-1"> <br>
                         <input type="checkbox" name="remember" id="remember">
                         <label for="remember">Remember me</label> <br>
                         <button type="submit" class="btn btn-primary">
