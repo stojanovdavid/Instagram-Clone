@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -16,5 +17,16 @@ class CommentController extends Controller
         ]);
 
         return json_encode(['comment' => $authId]);
+    }
+    public function destroy($commentId){
+        Comment::where('id', $commentId)->delete();
+        return back();
+    }
+    public function likeComment($id){
+        DB::table('comments_likes')->updateOrInsert([
+            'comment_id' => $id,
+            'user_id' => auth()->user()->id
+        ]);
+        return back();
     }
 }

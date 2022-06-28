@@ -3,9 +3,13 @@
 
 @section('content')
     <div class="container" style="width: 50%;">
-        <div class="row mb-2" style="background: rgb(255 255 255 / 54%);padding: 12px;border-radius: 5px;">
+        <div class="row mb-2 border-bottom border-secondary" style="background: rgb(255 255 255 / 54%);padding: 12px;border-radius: 5px;">
             <div class="col-sm-3 p-3">
-                <img src="/css/images/{{ auth()->user()->imageUrl }}" class="rounded-circle" width="70%" >
+                @if (auth()->user()->imageUrl === NULL)
+                    <img src="/css/images/avatar.jpeg" class="rounded-circle" width="70%" >
+                @else
+                    <img src="/css/images/{{ auth()->user()->imageUrl }}" class="rounded-circle" width="70%" >
+                @endif
             </div>
             <div class="col-sm-9">
                 <div class="d-flex pb-2">
@@ -44,7 +48,7 @@
                           </div>
                         </div>
                     </div>
-                    <div class="pr-5" style="margin-right: 10px"><a data-bs-toggle="modal" data-bs-target="#followingModal" class="text-decoration-none text-dark"><span><strong>{{ $following->count() }}</strong></span>  {{ Str::plural('follow', $following->count()) }}</a></div>
+                    <div class="pr-5" style="margin-right: 10px"><a data-bs-toggle="modal" data-bs-target="#followingModal" class="text-decoration-none text-dark"><span><strong>{{ $following->count() }}</strong></span>  {{ Str::plural('following', $following->count()) }}</a></div>
                     <div class="modal fade" id="followingModal" tabindex="-1" role="dialog" aria-labelledby="followingModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
@@ -87,9 +91,9 @@
                 <div class="container">
                     <div class="row pt-3" style="background: rgb(255 255 255 / 54%);padding: 12px;border-radius: 5px;">
                         @forelse ($posts as $post)
-                            <div class="col-sm-4" style="padding: 1px">
+                            <div class="col-4 col-md-4 mb-4 align-self-stretch px-2" style="padding: 3px">
                                 <a href="{{ route('post.view', $post->id ) }}">
-                                    <img src="/css/images/{{ $post->imageUrl }}" alt="" class="w-100">
+                                    <img src="/css/images/{{ $post->imageUrl }}" alt="" class="w-100" style="width:278px; height:265px">
                                 </a>
                             </div>
                         @empty

@@ -36,12 +36,16 @@ class ProfileController extends Controller
         return view('iGram.profile.index', compact('followers', 'following', 'followedByUsers', 'followingUsers', 'posts'));
     }
     
-    public function followProfile($followerId, $followedId, $val){
+    public function followProfile($followerId, $followedId){
         DB::table('user_profile')->updateOrInsert([
             'follower_id' => $followerId,
             'following_id' => $followedId
         ]);
         return "The one that is followed is $followedId and the one that follows is $followerId" ;
+    }
+    public function unfollowProfile($unfollowerId, $unfollowedId){
+        DB::table('user_profile')->where('follower_id', $unfollowerId)->where('following_id', $unfollowedId)->delete();
+        return "The one that is unfollowed is $unfollowedId and the one that  unfollowed is $unfollowedId" ;
     }
     public function edit($id){
         $user = User::where('id', $id)->first();

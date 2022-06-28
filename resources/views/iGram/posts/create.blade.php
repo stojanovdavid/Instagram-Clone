@@ -7,9 +7,20 @@
             <p>Add new post</p>
             <form action="{{ route('post.create') }}" method="post" enctype="multipart/form-data">
                 @csrf
-                <input type="file" name="postImageUrl" id="postImage"> <br>
-                <label for="">Caption:</label>
-                <input type="text" name="caption" id="caption"> <br>
+                <div class="row" style="margin-bottom: 20px">
+                    <div class="col-2"><label for="">Choose a photo</label></div>
+                    <div class="col-10">
+                        <input type="file" name="postImageUrl" id="postImage"> <br>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 20px">
+                    <div class="col-2">
+                        <label for="">Caption:</label>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" name="caption" id="caption"> <br>
+                    </div>
+                </div>
                 <input type="submit" name="submit" value="Create post">
             </form>
         </div>

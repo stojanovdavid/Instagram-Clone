@@ -11,7 +11,11 @@ use Illuminate\Support\Facades\DB;
 class MessageController extends Controller
 {
     public function index(){
-        $messages = Message::distinct()->where('reciever_id', '!=',  auth()->user()->id)->get('reciever_id');
+        $messages =  DB::table('messages')
+        ->distinct('sender_id', 'reciever_id')
+        ->where('reciever_id','=',auth()->user()->id)
+        ->orWhere('sender_id','=',auth()->user()->id)
+        ->get(['sender_id', 'reciever_id']);
         $messagedUsersIds = [];
         foreach($messages as $key => $message){
             $messagedUsersIds[$key] = $message->reciever_id;
@@ -20,6 +24,16 @@ class MessageController extends Controller
         foreach($messagedUsersIds as $key => $messagedUser){
             $messagedUsers[] = User::where('id', $messagedUser)->first();
         }
+        $followers = DB::table('user_profile')->where('following_id', auth()->user()->id)->orWhere('follower_id', auth()->user()->id)->get();
+        $followedByUserIds = [];
+        foreach($followers as $key => $follow){
+            $followedByUserIds[$key] = $follow->follower_id;
+        }
+        $followedByUsers = [];
+        foreach($followedByUserIds as $key => $followedUser){
+            $followedByUsers[] = User::where('id', $followedUser)->first();
+        } 
+
         $follows = DB::table('user_profile')->where('follower_id', auth()->user()->id)->get();
         $followedUserIds = [];
         foreach($follows as $key => $follow){
@@ -29,7 +43,7 @@ class MessageController extends Controller
         foreach($followedUserIds as $key => $followedUser){
             $followedUsers[] = User::where('id', $followedUser)->first();
         }
-        return view('iGram.messages.index', compact('messages', 'followedUsers', 'messagedUsers'));
+        return view('iGram.messages.index', compact('messages', 'followedUsers', 'messagedUsers', 'followedByUsers'));
     }
     public function sendMessage($authId, $recieverId, $message){
         DB::table('messages')->insert([
@@ -42,7 +56,11 @@ class MessageController extends Controller
     }
 
     public function seeChat($id){
-        $messages = Message::distinct()->where('reciever_id', '!=',  auth()->user()->id)->get('reciever_id');
+        $messages = DB::table('messages')
+        ->distinct('sender_id', 'reciever_id')
+        ->where('reciever_id','=', auth()->user()->id)
+        ->orWhere('sender_id','=',auth()->user()->id)
+        ->get(['sender_id', 'reciever_id']);
         $messagedUsersIds = [];
         foreach($messages as $key => $message){
             $messagedUsersIds[$key] = $message->reciever_id;
@@ -58,6 +76,7 @@ class MessageController extends Controller
 
         $messagesBetweenUsers = Message::where('sender_id', auth()->user()->id)->where('reciever_id', $id)
         ->orWhere('sender_id', $id)->where('reciever_id', auth()->user()->id)->get();
+
 
         return view('iGram.messages.chat', compact('messagedUsers', 'chatWithUser', 'messagesBetweenUsers'));
     }

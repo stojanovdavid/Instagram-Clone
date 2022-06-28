@@ -8,7 +8,11 @@
                 @csrf
                 <div class="row" style="margin-bottom: 10px">
                     <div class="col-2">
-                        <img src="/css/images/{{ $user->imageUrl }}" class="rounded-circle" width="70%" >
+                        @if ($user->imageUrl === NULL)
+                            <img src="/css/images/avatar.jpeg" class="rounded-circle" width="70%">
+                        @else
+                            <img src="/css/images/{{ $user->imageUrl }}" class="rounded-circle" width="70%" >
+                        @endif
                     </div>
                     <div class="col-10">
                         <p>{{ $user->username }}</p>

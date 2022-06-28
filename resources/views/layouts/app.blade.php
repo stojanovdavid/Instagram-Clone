@@ -13,10 +13,10 @@
         crossorigin="anonymous">
     </script>
 </head>
-<body class="bg-gray-200" style="min-height: 100%">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class='container' style="width: 1190px">
-            <a href=''>
+<body class="" style="min-height: 100%">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white p-2 border-bottom border-gray-500">
+        <div class='container p-2' style="width: 1190px">
+            <a href='{{ route('feed') }}'>
                 <img src='/css/images/instagram.png'></img>
             </a>
     
@@ -43,27 +43,29 @@
                         </a>
                     </li>
                     <li class='nav-item'>
-                        <a href='/post' class='nav-link'>
+                        <a href='/post' class='nav-link' data-bs-toggle="modal" data-bs-target="#postModal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-square" viewBox="0 0 16 16">
                                 <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                             </svg>
                         </a>
-                    </li>
-                    <li class='nav-item'>
-                        <a href='/search' class='nav-link'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-compass" viewBox="0 0 16 16">
-                                <path d="M8 16.016a7.5 7.5 0 0 0 1.962-14.74A1 1 0 0 0 9 0H7a1 1 0 0 0-.962 1.276A7.5 7.5 0 0 0 8 16.016zm6.5-7.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-                                <path d="m6.94 7.44 4.95-2.83-2.83 4.95-4.949 2.83 2.828-4.95z"/>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class='nav-item'>
-                        <a href='#' class='nav-link'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                            </svg>
-                        </a>
+                        <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <button type="button" class="btn btn-primary">
+                                        <a href="{{ route('post.create') }}" class="text-decoration-none text-white">Create new post</a>
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                     </li>
                     <li class='nav-item'>
                         <div class="dropdown nav-link">
