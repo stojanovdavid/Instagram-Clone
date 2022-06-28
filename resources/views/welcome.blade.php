@@ -19,7 +19,7 @@
 <body>
     <div class="d-flex mx-auto justify-content-between bg-gray-200" style="width: 900px; height: 700px" >
         <div class="img">
-            <img style="width: 450px; height: 705px" src="css/images/igpng.webp" alt="">
+            <img style="width: 550px; height: 705px" src="css/images/ig-removebg-preview.png" alt="">
         </div>
         <div class=" m-3" style="width: 400px; height: 705px">
             <div class="login bg-white mb-3 p-4 border border-secondary py-4" style="height: 480px">
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="signup bg-white p-4 text-center border border-secondary" style="height: 85px">
-                <p>Dont have an account? <a href="{{ route('signup') }}">Sign up</a></p>
+                <p>Dont have an account? <a href="{{ route('signup') }}" class="text-decoration-none">Sign up</a></p>
             </div>
         </div>
     </div>
