@@ -17,9 +17,9 @@
                 <input type="text" value="{{ $user->id }}" id="user" hidden>
                 <input type="text" value="{{ auth()->user()->id }}" id="authUser" hidden>
                 @if ($isFollowing->isEmpty())
-                    <input type="button" value="Follow" onclick="follow('{{ $user->id; }}')">
+                    <input type="button" value="Follow" onclick="follow('{{ $user->id }}')">
                 @else
-                    <input type="button" value="Unfollow" onclick="unfollow('{{ $user->id; }}')">
+                    <input type="button" value="Unfollow" onclick="unfollow('{{ $user->id }}')">
                 @endif
             </div>
             <div class="d-flex pb-3">

@@ -46,9 +46,6 @@
                           </div>
                         </div>
                       </div>
-                    {{-- @can('update', $user->profile)
-                        <a class="btn btn-secondary btn-sm" href="/profile/{{ $user->id }}/edit">Edit Profile</a>
-                    @endcan    --}}
                 </div>
                 <div class="d-flex pb-3">
                     <div class="pr-5" style="margin-right: 10px"><strong>0</strong> Posts</div>
@@ -64,7 +61,35 @@
                             </div>
                             <div class="modal-body">
                                 @foreach ($followedByUsers as $followers)
-                                    <p class="border-bottom border-secondary">{{ $followers->username }}</p>
+                                    <div class="profile-content">
+                                      <div class="row">
+                                          <div class="col-xl-12">
+                                              <div class="tab-content p-0">
+                                                  <div class="tab-pane fade active show" id="profile-followers">
+                                                      <div class="list-group">
+                                                          <div class="list-group-item d-flex align-items-center">
+                                                              @if ($followers->imageUrl === NULL)
+                                                                  <img src="/css/images/avatar.jpeg" class="rounded-circle" width="50px" >
+                                                              @else
+                                                                  <img src="/css/images/{{ $followers->imageUrl }}" class="rounded-circle" width="70%" >
+                                                              @endif
+                                                              <div class="flex-fill pl-3 pr-3">
+                                                                  <div><a href="#" class="text-dark font-weight-600">{{ $followers->username }}</a></div>
+                                                                  <div class="text-muted fs-13px">North Raundspic</div>
+                                                              </div>
+                                                              <form action="{{ route('user.view', $followers->id) }}">
+                                                                @csrf
+                                                                <button type="submit" style="background: none; border:none" class="text-primary">
+                                                                        <p class="btn btn-outline-primary">View profile</p>
+                                                                </button>
+                                                        </form>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
                                 @endforeach
                             </div>
                             <div class="modal-footer">
@@ -86,7 +111,35 @@
                             </div>
                             <div class="modal-body">
                                 @foreach ($followingUsers as $following)
-                                    <p class="border-bottom border-secondary">{{ $following->username }}</p>
+                                    <div class="profile-content">
+                                      <div class="row">
+                                          <div class="col-xl-12">
+                                              <div class="tab-content p-0">
+                                                  <div class="tab-pane fade active show" id="profile-followers">
+                                                      <div class="list-group">
+                                                          <div class="list-group-item d-flex align-items-center">
+                                                              @if ($following->imageUrl === NULL)
+                                                                  <img src="/css/images/avatar.jpeg" class="rounded-circle" width="50px" >
+                                                              @else
+                                                                  <img src="/css/images/{{ $following->imageUrl }}" class="rounded-circle" width="70%" >
+                                                              @endif
+                                                              <div class="flex-fill pl-3 pr-3">
+                                                                  <div><a href="#" class="text-dark font-weight-600">{{ $following->username }}</a></div>
+                                                                  <div class="text-muted fs-13px">North Raundspic</div>
+                                                              </div>
+                                                              <form action="{{ route('user.view', $following->id) }}">
+                                                                @csrf
+                                                                <button type="submit" style="background: none; border:none" class="text-primary">
+                                                                        <p class="btn btn-outline-primary">View profile</p>
+                                                                </button>
+                                                        </form>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
                                 @endforeach
                             </div>
                             <div class="modal-footer">

@@ -5,10 +5,11 @@
     <div class="container" style="width: 50%;">
         <div class="row mb-2" style="background: rgb(255 255 255 / 54%);padding: 12px;border-radius: 5px;">
             <div class="col-6">
-                <img src="/css/images/{{ $post->imageUrl }}" alt="" class="rounded" style="width: 438px; height:418px">
+                <img src="/css/images/{{ $post->imageUrl }}" alt="" class="rounded" style="width: 358px; height:418px">
             </div>
+            
             <div class="col-6">
-                    <div class="d-flex align-items-center pt-2 border-bottom border-secondary pb-2">
+                    <div class="col-12 d-flex align-items-center pt-2 border-bottom border-secondary pb-2">
                         <div>
                             <img src="/css/images/{{ $post->user->imageUrl }}" alt="" class="rounded-circle" width="50px">
                         </div>
@@ -18,7 +19,7 @@
                             </h6>
                         </div>
                     </div>
-                    <div class="overflow-auto" style="max-height: 350px;">
+                    <div class="overflow-auto" style="height: 266.2px;">
                         <div class="container">
                             <div class="row" style="margin-bottom:20px">
                                 <div class="d-flex align-items-center pt-2">
@@ -87,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="align-self-end">
+                    <div class="">
                         <div class="">
                             @if ($post->likedBy(auth()->user()))
                                 <form action="{{ route('post.unlike', $post->id) }}">

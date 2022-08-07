@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
@@ -30,9 +31,7 @@ class ProfileController extends Controller
         foreach($followingUserIds as $key => $followedUser){
             $followingUsers[] = User::where('id', $followedUser)->first();
         }
-
         $posts = Post::where('user_id', auth()->user()->id)->get();
-
         return view('iGram.profile.index', compact('followers', 'following', 'followedByUsers', 'followingUsers', 'posts'));
     }
     

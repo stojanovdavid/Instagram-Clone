@@ -19,17 +19,17 @@
                         <div class="border-top border-gray-400">
                             <div class="overflow-auto">
                                 <div style="height: 800px"> 
-                                    @foreach ($messagedUsers as $messagedUser)
-                                    @if ($messagedUser->id != auth()->user()->id)
+                                    @foreach ($convo_with_users as $user)
+                                    @if ($user->id != auth()->user()->id)
                                     <div class="messagedUser d-flex px-3 py-3">
-                                            @if ($messagedUser->imageUrl === NULL)
+                                            @if ($user->imageUrl === NULL)
                                                 <img src="/css/images/avatar.jpeg" class="rounded-circle" width="20%" style="margin-right: 20px">
                                             @else
-                                                <img src="/css/images/{{ $messagedUser->imageUrl }}" alt="" class="rounded-circle" width="20%" style="margin-right: 20px">
+                                                <img src="/css/images/{{ $user->imageUrl }}" alt="" class="rounded-circle" width="20%" style="margin-right: 20px">
                                             @endif
                                             <div>
-                                                <a href="{{ route('user.view', $messagedUser->id) }}" class="text-decoration-none text-dark" style="margin-bottom: 10px">{{ $messagedUser->username }}</a> <br>
-                                                <a href="{{ route('userChat', $messagedUser->id) }}">See convo</a>
+                                                <a href="{{ route('user.view', $user->id) }}" class="text-decoration-none text-dark" style="margin-bottom: 10px">{{ $user->username }}</a> <br>
+                                                <a href="{{ route('userChat', $user->id) }}">See convo</a>
                                             </div>
                                         </div>
                                         @endif

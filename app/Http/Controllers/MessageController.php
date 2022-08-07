@@ -11,19 +11,36 @@ use Illuminate\Support\Facades\DB;
 class MessageController extends Controller
 {
     public function index(){
-        $messages =  DB::table('messages')
+        $sender_messages =  DB::table('messages')
         ->distinct('sender_id', 'reciever_id')
-        ->where('reciever_id','=',auth()->user()->id)
+        // ->where('reciever_id','=',auth()->user()->id)
         ->orWhere('sender_id','=',auth()->user()->id)
-        ->get(['sender_id', 'reciever_id']);
+        ->get(['reciever_id']);
         $messagedUsersIds = [];
-        foreach($messages as $key => $message){
+        foreach($sender_messages as $key => $message){
             $messagedUsersIds[$key] = $message->reciever_id;
         }
         $messagedUsers = [];
         foreach($messagedUsersIds as $key => $messagedUser){
             $messagedUsers[] = User::where('id', $messagedUser)->first();
         }
+        
+        $reciever_messages = DB::table('messages')
+        ->distinct('sender_id', 'reciever_id')
+        ->where('reciever_id','=',auth()->user()->id)
+        // ->orWhere('sender_id','=',auth()->user()->id)
+        ->get(['sender_id']);
+        
+        $recieved_messages_from_UsersIds = [];
+        foreach($reciever_messages as $key => $message){
+            $recieved_messages_from_UsersIds[$key] = $message->sender_id;
+        }
+        $recieved_from_users = [];
+        foreach($recieved_messages_from_UsersIds as $key => $messagedUser){
+            $recieved_from_users[] = User::where('id', $messagedUser)->first();
+        }
+        $convo_with_users = array_unique(array_merge($messagedUsers, $recieved_from_users));
+        
         $followers = DB::table('user_profile')->where('following_id', auth()->user()->id)->orWhere('follower_id', auth()->user()->id)->get();
         $followedByUserIds = [];
         foreach($followers as $key => $follow){
@@ -43,7 +60,7 @@ class MessageController extends Controller
         foreach($followedUserIds as $key => $followedUser){
             $followedUsers[] = User::where('id', $followedUser)->first();
         }
-        return view('iGram.messages.index', compact('messages', 'followedUsers', 'messagedUsers', 'followedByUsers'));
+        return view('iGram.messages.index', compact('followedUsers', 'convo_with_users', 'followedByUsers'));
     }
     public function sendMessage($authId, $recieverId, $message){
         DB::table('messages')->insert([
@@ -56,19 +73,38 @@ class MessageController extends Controller
     }
 
     public function seeChat($id){
-        $messages = DB::table('messages')
+        $sender_messages =  DB::table('messages')
         ->distinct('sender_id', 'reciever_id')
-        ->where('reciever_id','=', auth()->user()->id)
+        // ->where('reciever_id','=',auth()->user()->id)
         ->orWhere('sender_id','=',auth()->user()->id)
-        ->get(['sender_id', 'reciever_id']);
+        ->get(['reciever_id']);
         $messagedUsersIds = [];
-        foreach($messages as $key => $message){
+        foreach($sender_messages as $key => $message){
             $messagedUsersIds[$key] = $message->reciever_id;
         }
         $messagedUsers = [];
         foreach($messagedUsersIds as $key => $messagedUser){
             $messagedUsers[] = User::where('id', $messagedUser)->first();
         }
+        
+        $reciever_messages = DB::table('messages')
+        ->distinct('sender_id', 'reciever_id')
+        ->where('reciever_id','=',auth()->user()->id)
+        // ->orWhere('sender_id','=',auth()->user()->id)
+        ->get(['sender_id']);
+        
+        $recieved_messages_from_UsersIds = [];
+        foreach($reciever_messages as $key => $message){
+            $recieved_messages_from_UsersIds[$key] = $message->sender_id;
+        }
+        $recieved_from_users = [];
+        foreach($recieved_messages_from_UsersIds as $key => $messagedUser){
+            $recieved_from_users[] = User::where('id', $messagedUser)->first();
+        }
+        $convo_with_users = array_unique(array_merge($messagedUsers, $recieved_from_users));
+
+
+
         $chatWithUser = User::where('id', $id)->first();
 
         $sentMessages = Message::where('sender_id', auth()->user()->id)->where('reciever_id', $id)->get();
@@ -78,6 +114,6 @@ class MessageController extends Controller
         ->orWhere('sender_id', $id)->where('reciever_id', auth()->user()->id)->get();
 
 
-        return view('iGram.messages.chat', compact('messagedUsers', 'chatWithUser', 'messagesBetweenUsers'));
+        return view('iGram.messages.chat', compact('convo_with_users', 'chatWithUser', 'messagesBetweenUsers'));
     }
 }
